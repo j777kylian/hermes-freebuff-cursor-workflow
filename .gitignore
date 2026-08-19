@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Runtime / ephemeral state (never track machine-local state)
+*.log
+*.pid
+*.lock
+logs/
+runtime/
+state/
+*.tmux
+captures/
+
+# Machine-local config / secrets
+config/config.toml
+.env
+.env.*
+!.env.example
+*.secret
+secrets/
+credentials*
+auth.json
+*credentials*.json
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp

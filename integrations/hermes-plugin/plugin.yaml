@@ -1,0 +1,6 @@
+name: hermes-freebuff-workflow
+version: 0.1.0
+description: Deterministic Discord -> Freebuff -> Cursor workflow commands (/devtask, /devstatus, /devdecide, /devstop)
+author: hermes-freebuff-cursor-workflow contributors
+license: MIT
+tags: [workflow, discord, cursor, freebuff]

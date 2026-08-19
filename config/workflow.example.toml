@@ -1,0 +1,87 @@
+# Example configuration for hermes-freebuff-workflow.
+#
+# Copy this file to:
+#   ~/.config/hermes-freebuff-workflow/config.toml
+#
+# It contains ONLY non-secret values. Credentials live in the existing
+# stores (Hermes: ~/.hermes/, Freebuff: ~/.config/manicode/, Cursor: the
+# Cursor CLI's own auth store) and are never copied here.
+
+[workflow]
+# Maximum number of Cursor repair iterations before the task is BLOCKED.
+max_repair_iterations = 3
+
+# Overall budget for a single task, in seconds.
+task_timeout_seconds = 3600
+
+# How often the deterministic bridge polls the authoritative state.json.
+poll_interval_seconds = 5
+
+# Where task history/archive is kept. "false" keeps archives inside the
+# managed repo under .workflow/history/ (safe default: not Git-tracked).
+track_history_in_git = false
+
+[freebuff]
+# Path or name of the Freebuff CLI.
+command = "freebuff"
+
+# Prefix used for tmux sessions (task-specific suffix is appended).
+session_prefix = "hfw-freebuff"
+
+# Where Freebuff tmux session logs are captured (relative to the workflow
+# runtime dir if not absolute).
+capture_dir = "freebuff"
+
+# Desired supervisor model. Use a stable internal id (recommended), e.g.
+#   model = "deepseek/deepseek-v4-flash"
+# or a display name, e.g.
+#   model = "DeepSeek V4 Flash"
+# Empty means "use Freebuff's own default" and skip controlled selection.
+# The bridge never silently falls back to a premium model when this is absent.
+model = "deepseek/deepseek-v4-flash"
+
+# How long to wait for the Freebuff tmux session to be created.
+freebuff_start_timeout_seconds = 120
+
+# How long to wait for the Freebuff TUI to reach a classifiable screen.
+freebuff_ready_timeout_seconds = 60
+
+# How long to wait for the model picker selection to complete.
+model_select_timeout_seconds = 30
+
+# How long to wait for the durable supervisor acknowledgement after the
+# supervisor prompt is submitted.
+ack_timeout_seconds = 300
+
+# Screen poll interval for startup classification.
+screen_poll_interval_seconds = 1
+
+# Bounded number of prompt delivery attempts.
+prompt_delivery_retries = 3
+
+[cursor]
+# Path or name of the Cursor CLI (usually "agent").
+command = "agent"
+
+# Cursor model. Defaults to "auto" when available.
+model = "auto"
+
+# Pass --force (allow commands unless explicitly denied). See docs/SECURITY.md.
+force = true
+
+# Pass --trust (trust the workspace without prompting). See docs/SECURITY.md.
+trust = true
+
+# Cursor --output-format: text | json | stream-json.
+output_format = "stream-json"
+
+# Per-invocation budget for a single Cursor run.
+timeout_seconds = 1800
+
+[hermes]
+# Path or name of the Hermes CLI.
+command = "hermes"
+
+# Discord delivery target for completion/decision reports. Verify with:
+#   hermes send --list discord
+discord_target = "discord:#hermes"
